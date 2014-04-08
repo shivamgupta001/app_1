@@ -1,0 +1,8 @@
+<%= form_for @list do |l|%>
+Name : <%= l.text_field :name %><br/>
+Start Date : <%= l.date_field :s_date%><br/>
+End Date : <%= l.date_field :e_date %>
+<%=l.submit%>
+<%end%>
+
+

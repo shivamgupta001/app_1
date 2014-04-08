@@ -1,0 +1,18 @@
+<h3>To Do List....</h3>
+<br/>
+<table>
+<tr><td>Name</td>
+    <td>S_date</td>
+    <td>E_date</td>
+</tr>
+<% @lists.each do |l|%>
+
+<tr><td><%= l.name %></td>
+    <td><%= l.s_date%></td>
+    <td><%= l.e_date%></td>
+</tr>
+<%end%>
+
+</table>
+<%=link_to :create_new , new_list_path %>
+

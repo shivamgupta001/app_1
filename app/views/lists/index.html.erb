@@ -1,0 +1,24 @@
+<h3>To Do List....</h3>
+<br/>
+<table>
+<tr><th>Name</th>
+    <th>S_date</th>
+    <th>E_date</th>
+    <th>Actions</th>
+</tr>
+
+<% @lists.each do |l|%>
+
+<tr><td><%= l.name %></td>
+    <td><%= l.s_date%></td>
+    <td><%= l.e_date%></td>
+    <td><%= link_to :edit , edit_list_path(l) %></td>
+    <td><%= link_to :show , list_path(l) %></td> 
+    <td><%= link_to :delete , list_path(l) , :method=>:delete , :confirm=>"r u sure" %></td>
+</tr>
+
+<%end%>
+
+</table>
+<%=link_to :create_new , new_list_path %>
+

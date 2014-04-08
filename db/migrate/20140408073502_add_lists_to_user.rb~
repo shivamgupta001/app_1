@@ -1,0 +1,4 @@
+class AddListsToUser < ActiveRecord::Migration
+  def change
+  end
+end
