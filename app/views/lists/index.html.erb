@@ -1,24 +1,108 @@
+<script>
+function myFunction(name , s_date , e_date , id)
+{ 
+  document.getElementById("list_name1").value=name;
+  document.getElementById("list_s_date1").value=s_date;
+  document.getElementById("list_e_date1").value=e_date;
+  document.getElementById("edit_list_").action ="/lists/"+id;
+  document.getElementById("edit_list_").id +=id;
+}
+</script>
+
 <h3>To Do List....</h3>
 <br/>
-<table>
-<tr><th>Name</th>
-    <th>S_date</th>
-    <th>E_date</th>
-    <th>Actions</th>
-</tr>
 
-<% @lists.each do |l|%>
+	<div class="row">
+		<div class="col-md-3"><strong>Name</strong></div>
+		<div class="col-md-3"><strong>S_date</strong></div>
+		<div class="col-md-3"><strong>E_date</strong></div>
+		<div class="col-md-3"><strong>Actions</strong></div>
+	
 
-<tr><td><%= l.name %></td>
-    <td><%= l.s_date%></td>
-    <td><%= l.e_date%></td>
-    <td><%= link_to :edit , edit_list_path(l) %></td>
-    <td><%= link_to :show , list_path(l) %></td> 
-    <td><%= link_to :delete , list_path(l) , :method=>:delete , :confirm=>"r u sure" %></td>
-</tr>
+	<% @lists.each do |l|%>
+	    
+		<div class="col-md-3"><%= l.name %></div>
+		<div class="col-md-3"><%= l.s_date%></div>
+		<div class="col-md-3"><%= l.e_date%></div>
+		
+		<div class="col-md-3">
+		    <button  data-toggle="modal" data-target="#myModal1" onclick="return myFunction('<%=l.name%>','<%= l.s_date%>','<%= l.e_date%>' ,<%=l.id%>)">Edit</button>
+			<button  data-toggle="modal" data-target="#myModal2">Show</button> 
+			<%= link_to :delete , list_path(l) , :method=>:delete , :confirm=>"r u sure"%>
+			<%= link_to :edit1 , edit_list_path(l)%>
+		</div>
+    <%end%>
+	</div>
+    <br/>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <small>Create New</small></button>
 
-<%end%>
 
-</table>
-<%=link_to :create_new , new_list_path %>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	     <div class="modal-dialog">
+	        <div class="modal-content">
+	          <div class="modal-header">
+	             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	             <h4 class="modal-title" id="myModalLabel">Create New Task</h4>
+	          </div>
+		      <div class="modal-body">
+		        <%= form_for List.new do |f|%>
+		        <div class="row">
+			        <div class="col-md-3"><%= f.label :name%></div>
+					<div class="col-md-9"><%= f.text_field :name %></div>
+				</div>
+				<div class="row">
+					<div class="col-md-3"><%= f.label :start_date%></div>
+					<div class="col-md-9"><%= f.date_field :s_date%>(YYYY-MM-DD)</div>
+				</div>
+                <div class="row">
+					<div class="col-md-3"><%= f.label :last_date%></div>
+					<div class="col-md-9"><%= f.date_field :e_date %>(YYYY-MM-DD)</div>
+				</div>
+				
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <%=f.submit :class=>"btn btn-default"%>
+				<%end%>		
+		      </div>
+	        </div>
+	     </div>
+    </div>
+    
+
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+    		<div class="modal-content">
+     		    <div class="modal-header">
+       			   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    		       <h4 class="modal-title" id="myModalLabel">Edit Task</h4>
+     		     </div>
+	     		 <div class="modal-body">
+	      
+	             <form method="get" action="/lists/8" class="edit_list" id="edit_list_8">
+	             <div class="row">
+			        <div class="col-md-3">Name</div>
+					<div class="col-md-9"><input id="list_name1" type="text" value="banana" name="list[name]"  ></input></div>
+				</div>
+	             <div class="row">
+			        <div class="col-md-3">Start Date</div>
+					<div class="col-md-9"><input id="list_s_date1" type="date" value="2005-05-02" name="list[s_date]" ></input>(YYYY-MM-DD)</div>
+				</div>
+				<div class="row">
+			        <div class="col-md-3">Last Date</div>
+					<div class="col-md-9"><input id="list_e_date1" type="date" value="2008-06-06" name="list[e_date]" ></input>(YYYY-MM-DD)</div>
+				</div>
+	            
+
+	      	     </div>
+     	         <div class="modal-footer">
+		       		 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		       		 <input type="submit" class="btn btn-default" data-dismiss="modal"  name="commit" value="Update"></input>
+		       	</form> 
+		       		 
+     	         </div>
+            </div>
+         </div>
+    </div>
 

@@ -14,14 +14,15 @@ class ListsController < ApplicationController
 	       end
 	    end
 	    def edit
-
-	      @list=List.where(:id=> params[:id] , :user_id=>current_user.id).first
+            @list=List.where(:id=> params[:id] , :user_id=>current_user.id).first
+	        
 	    end
 		def show 
 	 	 @list=List.where(:id=> params[:id] , :user_id=>current_user.id).first
 		end
 		def update
 	 	 @list=List.where(:id=>params[:id] , :user_id=>current_user.id).first
+	 	   
 	  	 if @list.update_attributes(list_params)
 	   	    redirect_to lists_path
 	   	 else
